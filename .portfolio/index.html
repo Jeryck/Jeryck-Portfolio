@@ -1,0 +1,409 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Jeryck Ian Castañeto</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout concept: a priced bill of quantities. Ruled ledger rows, drafting-grid hero, numbers set in mono. */
+:root{
+  --bg:#EEF1F2;
+  --surface:#FFFFFF;
+  --fg:#101A24;
+  --muted:#51606E;
+  --rule:#C9D2D8;
+  --accent:#1B4DB1;
+  --accent-soft:#DCE6F8;
+  --grid:#DDE3E7;
+  --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D141B;--surface:#141D26;--fg:#E7EDF2;--muted:#9AA9B7;--rule:#2A3744;--accent:#8CB0FF;--accent-soft:#1C2B47;--grid:#17222C;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D141B;--surface:#141D26;--fg:#E7EDF2;--muted:#9AA9B7;--rule:#2A3744;--accent:#8CB0FF;--accent-soft:#1C2B47;--grid:#17222C;color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.6;margin:0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.02;margin:0;text-wrap:balance;letter-spacing:.005em}
+.label{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* top bar */
+.top{padding-block:18px;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:center;border-bottom:1px solid var(--rule)}
+.top .brand{font-family:var(--f-display);font-size:22px;font-weight:700;letter-spacing:.02em}
+.top nav{display:flex;flex-wrap:wrap;gap:6px 20px}
+.top nav a{color:var(--fg);text-decoration:none;font-size:14px}
+.top nav a:hover{color:var(--accent)}
+
+/* hero */
+.hero{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;border-bottom:1px solid var(--rule)}
+.hero .wrap{padding-block:56px 40px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:40px;align-items:end}
+.hero h1{font-size:clamp(52px,9vw,104px);font-weight:700}
+.hero .role{font-family:var(--f-display);font-size:clamp(24px,3.4vw,34px);color:var(--accent);margin-top:10px;font-weight:600}
+.hero p.lead{max-width:56ch;font-size:18px;margin:20px 0 0}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{display:inline-block;padding:11px 18px;border:1px solid var(--fg);color:var(--fg);text-decoration:none;font-weight:500;font-size:15px;background:transparent;cursor:pointer;font-family:var(--f-body)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] .btn.primary{color:#0D141B}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.primary{color:#0D141B}}
+.btn:hover{border-color:var(--accent)}
+.clock{background:var(--surface);border:1px solid var(--rule);padding:18px}
+.clock ul{list-style:none;margin:12px 0 0;padding:0}
+.clock li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--rule);font-size:15px}
+.clock li:first-child{border-top:0}
+.clock .t{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.clock small{display:block;color:var(--muted);margin-top:10px;font-size:13px}
+
+/* key figures */
+.figs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--rule);background:var(--surface)}
+.fig{padding:22px 20px;border-left:1px solid var(--rule)}
+.fig:first-child{border-left:0}
+.fig b{display:block;font-family:var(--f-display);font-size:38px;font-weight:700;line-height:1;color:var(--accent)}
+.fig span{display:block;margin-top:8px;font-size:14px;color:var(--muted)}
+
+/* sections */
+section{padding-block:64px 8px}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:12px 40px;margin-bottom:28px;align-items:start}
+.sec-head h2{font-size:clamp(34px,5vw,52px)}
+.sec-head p{margin:0;color:var(--muted);max-width:62ch}
+
+/* services */
+.svc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
+.svc div{padding:20px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--surface)}
+.svc h3{font-size:24px;margin-bottom:8px}
+.svc p{margin:0;font-size:15px;color:var(--muted)}
+
+/* sample estimate */
+.est{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:28px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--rule);padding:22px}
+.bars{display:flex;flex-direction:column;gap:16px;margin-top:16px}
+.bar .row{display:flex;justify-content:space-between;gap:12px;font-size:14px;flex-wrap:wrap}
+.bar .row span:last-child{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.track{height:12px;background:var(--accent-soft);margin-top:6px}
+.fill{height:100%;background:var(--accent)}
+.ledger{width:100%;border-collapse:collapse;font-size:14px}
+.ledger td{padding:9px 0;border-top:1px solid var(--rule);vertical-align:top}
+.ledger td:last-child{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:12px}
+.ledger tr.total td{font-weight:600;border-top:2px solid var(--fg)}
+.note{font-size:13px;color:var(--muted);margin:14px 0 0}
+
+/* projects */
+.proj{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--rule);padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.card h3{font-size:26px}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.chips li{font-family:var(--f-mono);font-size:12px;padding:3px 8px;border:1px solid var(--rule);background:var(--bg)}
+.card p{margin:0;font-size:15px;color:var(--muted)}
+
+/* experience */
+.job{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:8px 40px;padding-block:24px;border-top:1px solid var(--rule)}
+.job:last-child{border-bottom:1px solid var(--rule)}
+.job h3{font-size:26px}
+.job .co{font-weight:500;margin-top:4px}
+.job .when{margin-top:6px}
+.job ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;font-size:15px}
+
+/* tools & credentials */
+.tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.tools .panel h3{font-size:22px;margin-bottom:12px}
+.tools dl{margin:0}
+.tools dl div{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--rule);font-size:15px}
+.tools dl div:first-child{border-top:0}
+.tools dt{font-weight:500}
+.tools dd{margin:0;color:var(--muted);text-align:right}
+.panel ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;font-size:15px}
+
+/* contact */
+.contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.contact .mail{font-family:var(--f-mono);font-size:clamp(15px,2.6vw,20px);word-break:break-all;margin:12px 0}
+footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
+
+@media (max-width:820px){
+  .hero .wrap,.est,.contact,.tools,.proj{grid-template-columns:minmax(0,1fr)}
+  .sec-head,.job{grid-template-columns:minmax(0,1fr)}
+  .svc{grid-template-columns:minmax(0,1fr)}
+  .figs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fig:nth-child(3){border-left:0}
+  .fig:nth-child(n+3){border-top:1px solid var(--rule)}
+}
+@media (prefers-reduced-motion:no-preference){.btn{transition:border-color .15s}}
+</style>
+
+<header class="wrap top">
+  <span class="brand">J. I. CASTAÑETO, RCE</span>
+  <nav aria-label="Sections">
+    <a href="#expertise">Expertise</a>
+    <a href="#sample">Sample estimate</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#tools">Tools</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="label">Registered Civil Engineer · Philippines</div>
+      <h1 style="margin-top:14px">Jeryck Ian Castañeto</h1>
+      <div class="role">Construction Estimator</div>
+      <p class="lead">Estimates for all trades, from quantity take-off and mark-ups through to the contract document. Structural engineering background, so quantities are checked against how the building is actually built.</p>
+      <div class="cta">
+        <a class="btn primary" href="#contact">Request an estimate</a>
+        <a class="btn" href="#sample">See a sample BOQ</a>
+      </div>
+    </div>
+    <aside class="clock" aria-label="Local times">
+      <div class="label">Working remotely from the Philippines</div>
+      <ul id="clock">
+        <li><span>Manila (UTC+8)</span><span class="t">--:--</span></li>
+        <li><span>Sydney</span><span class="t">--:--</span></li>
+        <li><span>New York</span><span class="t">--:--</span></li>
+        <li><span>Los Angeles</span><span class="t">--:--</span></li>
+      </ul>
+      <small>Serving Australian and US clients.</small>
+    </aside>
+  </div>
+</div>
+
+<div class="figs">
+  <div class="fig"><b>2–3 days</b><span>From take-off and mark-ups to contract, per project</span></div>
+  <div class="fig"><b>PHP 5M–17M</b><span>Residential and commercial projects handled</span></div>
+  <div class="fig"><b>All trades</b><span>Structural, architectural, roofing, plumbing, electrical, MEPF</span></div>
+  <div class="fig"><b>3+ years</b><span>Design, estimating and site supervision</span></div>
+</div>
+
+<main class="wrap">
+
+<section id="expertise">
+  <div class="sec-head">
+    <h2>Expertise</h2>
+    <p>Estimating is the main service. The engineering and site background behind it is what keeps quantities realistic and scopes complete.</p>
+  </div>
+  <div class="svc">
+    <div><h3>Quantity take-off</h3><p>Digital take-offs from plans and specifications in PlanSwift and Bluebeam, covering structural, architectural and MEPF scopes.</p></div>
+    <div><h3>BOQ and cost proposals</h3><p>Bills of quantities with unit rates, trade sub-totals, discounts and a separate schedule for owner-supplied items.</p></div>
+    <div><h3>MEPF and HVAC estimating</h3><p>Mechanical, Electrical, Plumbing and Fire Protection (MEPF) estimates, including Heating, Ventilation and Air Conditioning (HVAC), for Australian clients.</p></div>
+    <div><h3>Bid sheets and specifications</h3><p>Bill of materials bid sheets, project specifications and scope of works for every project component.</p></div>
+    <div><h3>Scheduling</h3><p>Project timelines, manpower and equipment schedules, PERT-CPM and Gantt charts.</p></div>
+    <div><h3>Structural review</h3><p>Structural analysis and design in ETABS and STAAD.Pro, with drawing and load calculation review against the National Structural Code of the Philippines (NSCP).</p></div>
+  </div>
+</section>
+
+<section id="sample">
+  <div class="sec-head">
+    <h2>Sample estimate</h2>
+    <p>Extract from a detailed cost proposal for a two-storey residence in Lipa, Batangas. Client details are withheld.</p>
+  </div>
+  <div class="est">
+    <div class="panel">
+      <div class="label">Where the money goes · share of PHP 6,671,895.70 gross works</div>
+      <div class="bars">
+        <div class="bar"><div class="row"><span>Civil and structural works (incl. masonry, slabs, painting)</span><span>4,401,154.50 · 66.0%</span></div><div class="track"><div class="fill" style="width:66%"></div></div></div>
+        <div class="bar"><div class="row"><span>Finishes, doors, railings and other works</span><span>706,999.50 · 10.6%</span></div><div class="track"><div class="fill" style="width:10.6%"></div></div></div>
+        <div class="bar"><div class="row"><span>General requirements</span><span>660,000.00 · 9.9%</span></div><div class="track"><div class="fill" style="width:9.9%"></div></div></div>
+        <div class="bar"><div class="row"><span>Plumbing and electrical</span><span>473,500.76 · 7.1%</span></div><div class="track"><div class="fill" style="width:7.1%"></div></div></div>
+        <div class="bar"><div class="row"><span>Roofing works</span><span>430,240.94 · 6.4%</span></div><div class="track"><div class="fill" style="width:6.4%"></div></div></div>
+      </div>
+      <p class="note">Quantities use construction units: LM (linear metres), SQ M, CU M, EA and LOT, each priced with its own unit rate.</p>
+    </div>
+    <div class="panel">
+      <div class="label">Contract summary · PHP</div>
+      <table class="ledger" style="margin-top:12px">
+        <tr><td>Total interior and exterior works</td><td>6,671,895.70</td></tr>
+        <tr><td>Less discount</td><td>−171,895.70</td></tr>
+        <tr class="total"><td>Quoted contract price</td><td>6,500,000.00</td></tr>
+        <tr><td>Owner-supplied items (tiles, fixtures, cabinets, doors, windows, lighting)</td><td>1,013,324.80</td></tr>
+        <tr class="total"><td>Total incl. owner-supplied items</td><td>7,513,324.80</td></tr>
+        <tr><td>Additional works: gate and perimeter fence (after discount)</td><td>680,000.00</td></tr>
+      </table>
+      <p class="note">Contractor scope and owner-supplied items are priced separately so the client can compare supplier options.</p>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="sec-head">
+    <h2>Project samples</h2>
+    <p>Five residential estimates for Philippine clients, with contract prices between PHP 5 million and PHP 13 million. Each went from take-off and mark-ups to contract in 2–3 days.</p>
+  </div>
+  <div class="proj">
+    <article class="card">
+      <div class="label">Two-storey residence</div>
+      <h3>Lipa, Batangas</h3>
+      <p>Full take-off and detailed cost proposal covering structural, roofing, plumbing, electrical, finishing, railings and perimeter works, with owner-supplied items priced separately.</p>
+      <ul class="chips"><li>PlanSwift take-off</li><li>BOQ</li></ul>
+    </article>
+    <article class="card">
+      <div class="label">Two-storey residence</div>
+      <h3>Imus, Cavite</h3>
+      <p>Take-off across 18 PlanSwift sheets, a detailed BOQ with structural member schedules, and a bill of materials bid sheet organised by work package.</p>
+      <ul class="chips"><li>PlanSwift take-off</li><li>BOQ</li><li>BOM bid sheet</li></ul>
+    </article>
+    <article class="card">
+      <div class="label">Two-storey residence</div>
+      <h3>Taytay, Rizal</h3>
+      <p>Floor-by-floor take-off of slabs, hollow-block walls, ceilings, tiling, roofing, gutters and fascia from the architectural plans.</p>
+      <ul class="chips"><li>PlanSwift take-off</li></ul>
+    </article>
+    <article class="card">
+      <div class="label">One-storey residence</div>
+      <h3>Taytay, Rizal</h3>
+      <p>Take-off of floor plan, bathrooms, roofing and finishes, including tile adhesive, waterproofing, canopy and door works.</p>
+      <ul class="chips"><li>PlanSwift take-off</li></ul>
+    </article>
+    <article class="card">
+      <div class="label">One-storey residence</div>
+      <h3>Dasmariñas, Cavite</h3>
+      <p>Take-off of walls, slabs, roofing and site development, plus a 28-week cost-loaded project schedule from mobilisation to demobilisation.</p>
+      <ul class="chips"><li>PlanSwift take-off</li><li>Gantt schedule</li></ul>
+    </article>
+    <article class="card" style="background:var(--accent-soft)">
+      <div class="label">Current · Remote</div>
+      <h3>MEPF and HVAC estimating</h3>
+      <p>Freelance estimates for Australian clients covering Mechanical, Electrical, Plumbing and Fire Protection, including HVAC.</p>
+      <ul class="chips"><li>Australian clients</li><li>MEPF</li><li>HVAC</li></ul>
+    </article>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="sec-head">
+    <h2>Experience</h2>
+    <p>Estimating roles alongside structural design and site leadership, so estimates are written by someone who has also built from the drawings.</p>
+  </div>
+  <div>
+    <div class="job">
+      <div><h3>Freelance Estimator</h3><div class="co">Australian clients, remote</div><div class="when label">Current</div></div>
+      <ul>
+        <li>Prepares Mechanical, Electrical, Plumbing and Fire Protection (MEPF) estimates, including Heating, Ventilation and Air Conditioning (HVAC).</li>
+        <li>Delivers client-facing work remotely from the Philippines (UTC+8).</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div><h3>Assistant Quantity Surveyor</h3><div class="co">John Hay Management Corporation</div><div class="label" style="margin-top:6px">Camp John Hay, Baguio City</div><div class="when label">Jul 2026 – Present</div></div>
+      <ul>
+        <li>Prepares quantity take-offs and cost estimates per project, based on current material availability and prices.</li>
+        <li>Prepares project specifications and scopes of work for all project components.</li>
+        <li>Builds project timelines, manpower and equipment schedules, and PERT-CPM and Gantt charts in scheduling software.</li>
+        <li>Supports space planning and design preparation in line with the National Building Code of the Philippines.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div><h3>Head Engineer</h3><div class="co">Proverbs Construction Corporation</div><div class="label" style="margin-top:6px">San Mateo, Rizal</div><div class="when label">Sep 2024 – May 2026</div></div>
+      <ul>
+        <li>Ran structural analysis and design in ETABS, STAAD.Pro and AutoCAD for 7 concurrent residential and commercial projects valued at PHP 5M–17M, to NSCP requirements.</li>
+        <li>Reviewed drawings, load calculations and reinforcement details before construction, resolving design issues to prevent rework.</li>
+        <li>Paired design with quantity take-offs and cost estimation so designs stayed buildable and cost-efficient.</li>
+        <li>Directed on-site supervision across all 7 projects, verifying work against design specifications and safety standards.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div><h3>Project Engineer</h3><div class="co">Renmaster Construction Service</div><div class="label" style="margin-top:6px">San Mateo, Rizal</div><div class="when label">Jan 2024 – Sep 2024</div></div>
+      <ul>
+        <li>Prepared quantity take-offs, cost estimates and BOQs in PlanSwift and MS Office for bidding on 5 projects (PHP 4M–13M contract value).</li>
+        <li>Produced as-built drawings, 2D shop drawings and structural blueprints.</li>
+        <li>Supervised on-site operations across all 5 projects against approved drawings, schedules and quality standards.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div><h3>Site Engineer</h3><div class="co">VCC Engineering and Construction Services</div><div class="label" style="margin-top:6px">Calamba, Laguna</div><div class="when label">Jun 2023 – Dec 2023</div></div>
+      <ul>
+        <li>Supported site supervision and quality checks on commercial building projects.</li>
+        <li>Prepared permits, technical documents and daily site activity reports; tracked workforce productivity, material deliveries and schedules.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="sec-head">
+    <h2>Tools and credentials</h2>
+    <p>Software used on live projects, and the qualifications behind the estimates.</p>
+  </div>
+  <div class="tools">
+    <div class="panel">
+      <h3>Software</h3>
+      <dl>
+        <div><dt>PlanSwift</dt><dd>Digital take-off</dd></div>
+        <div><dt>Bluebeam</dt><dd>Plan markup and measurement</dd></div>
+        <div><dt>MS Excel (expert)</dt><dd>BOQs, rate build-ups</dd></div>
+        <div><dt>MS Project</dt><dd>Scheduling</dd></div>
+        <div><dt>AutoCAD</dt><dd>Drafting and shop drawings</dd></div>
+        <div><dt>ETABS, STAAD.Pro</dt><dd>Structural analysis</dd></div>
+        <div><dt>Google Workspace</dt><dd>Collaboration</dd></div>
+      </dl>
+    </div>
+    <div class="panel">
+      <h3>Credentials</h3>
+      <ul class="plain">
+        <li>Registered Civil Engineer (RCE), Philippines</li>
+        <li>BS Civil Engineering, Structural Engineering specialisation, Saint Louis University, Baguio City (December 2022)</li>
+        <li>Safety Officer 2</li>
+        <li>Construction Project Management; Structural Analysis and Design</li>
+        <li>Shielded Metal Arc Welding (NC II); Electronic Products Assembly (NC II)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="sec-head">
+    <h2>Contact</h2>
+    <p>Send plans and a short scope description. Referees available on request.</p>
+  </div>
+  <div class="contact">
+    <div class="panel">
+      <div class="label">Email</div>
+      <div class="mail" id="email">jeryckiancastaneto@gmail.com</div>
+      <div class="cta" style="margin-top:6px">
+        <a class="btn primary" href="mailto:jeryckiancastaneto@gmail.com?subject=Estimating%20enquiry">Open email</a>
+        <button class="btn" type="button" id="copy">Copy address</button>
+      </div>
+      <p class="note" id="copied" role="status"></p>
+    </div>
+    <div class="panel">
+      <div class="label">Based in</div>
+      <p style="margin:10px 0 0">Urdaneta City, Pangasinan, Philippines (UTC+8)</p>
+      <p class="note">Remote work for Australian and US clients.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">Jeryck Ian V. Castañeto, RCE · Construction Estimator</footer>
+
+<script>
+(function(){
+  var zones=[["Asia/Manila"],["Australia/Sydney"],["America/New_York"],["America/Los_Angeles"]];
+  var items=document.querySelectorAll("#clock li");
+  function tick(){
+    var now=new Date();
+    zones.forEach(function(z,i){
+      try{
+        var s=new Intl.DateTimeFormat("en-GB",{timeZone:z[0],weekday:"short",hour:"2-digit",minute:"2-digit",hour12:false}).format(now);
+        items[i].querySelector(".t").textContent=s;
+      }catch(e){}
+    });
+  }
+  tick();setInterval(tick,30000);
+  var btn=document.getElementById("copy"),msg=document.getElementById("copied"),em=document.getElementById("email");
+  btn.addEventListener("click",function(){
+    var done=function(){msg.textContent="Address copied."};
+    var fallback=function(){
+      try{var r=document.createRange();r.selectNodeContents(em);var s=window.getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Address selected. Copy it with your keyboard."}catch(e){}
+    };
+    try{navigator.clipboard.writeText(em.textContent).then(done,fallback)}catch(e){fallback()}
+  });
+})();
+</script>
+
+</body></html>
