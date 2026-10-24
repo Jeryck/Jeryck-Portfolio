@@ -1,6 +1,13 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Jeryck Ian Castañeto, RCE. Construction Estimator for Australian and US clients.">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Jeryck Ian Castañeto</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+</head>
+<body>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
 /* Layout concept: a priced bill of quantities. Ruled ledger rows, drafting-grid hero, numbers set in mono. */
@@ -13,6 +20,7 @@
   --accent:#1B4DB1;
   --accent-soft:#DCE6F8;
   --grid:#DDE3E7;
+  --scrim:rgba(8,14,20,.6);
   --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
   --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
@@ -125,9 +133,55 @@ section{padding-block:64px 8px}
 .contact .mail{font-family:var(--f-mono);font-size:clamp(15px,2.6vw,20px);word-break:break-all;margin:12px 0}
 footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
 
+
+/* clickable projects */
+.card.pop{position:relative}
+.card.pop:hover{border-color:var(--accent)}
+.card .val{font-family:var(--f-mono);font-size:14px;font-variant-numeric:tabular-nums}
+.open{margin-top:auto;align-self:flex-start;background:none;border:0;padding:0;font:inherit;font-weight:600;color:var(--accent);cursor:pointer;text-align:left}
+.open::after{content:"";position:absolute;inset:0}
+.open:focus-visible{outline:none}
+.open:focus-visible::after{outline:2px solid var(--accent);outline-offset:3px}
+
+/* project pop-up */
+.modal{position:fixed;inset:0;z-index:50;background:var(--scrim);display:flex;align-items:center;justify-content:center;padding-top:max(16px,env(safe-area-inset-top,0px));padding-bottom:max(16px,env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sheet{background:var(--bg);border:1px solid var(--rule);width:100%;max-width:980px;max-height:100%;display:flex;flex-direction:column;min-width:0}
+.sheet:focus{outline:none}
+.sheet-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:18px 20px;border-bottom:1px solid var(--rule);background:var(--surface)}
+.sheet-head h3{font-size:clamp(28px,4vw,40px);margin-top:4px}
+.close{flex:none}
+.sheet-body{overflow:auto;padding:20px;display:flex;flex-direction:column;gap:20px;min-height:0}
+.sheet-body>*{flex:none}
+.m-top{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:20px;align-items:start}
+.render{margin:0;aspect-ratio:16/10;max-width:100%;border:1px solid var(--rule);background:var(--surface);overflow:hidden;display:flex}
+.render img{width:100%;height:100%;object-fit:cover;display:block}
+.render .ph{margin:12px;flex:1;border:1px dashed var(--rule);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:12px;color:var(--muted)}
+.render .ph b{font-family:var(--f-display);font-size:26px;font-weight:600;color:var(--fg)}
+.m-info{min-width:0}
+.m-info p{margin:0 0 14px;font-size:15px;color:var(--muted)}
+.m-info dl{margin:0}
+.m-info dl div{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--rule);font-size:14px}
+.m-info dt{color:var(--muted)}
+.m-info dd{margin:0;font-family:var(--f-mono);text-align:right;font-variant-numeric:tabular-nums}
+.m-scope h4{margin:0 0 8px;font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.m-scope ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{font:inherit;font-size:14px;padding:8px 14px;border:1px solid var(--rule);background:var(--surface);color:var(--fg);cursor:pointer}
+.tab[aria-selected="true"]{border-color:var(--accent);background:var(--accent-soft);font-weight:600}
+.tbl{overflow-x:auto;border:1px solid var(--rule);background:var(--surface)}
+table.boq{width:100%;border-collapse:collapse;font-size:13.5px}
+.boq th,.boq td{padding:7px 12px;text-align:left;border-top:1px solid var(--rule);vertical-align:top}
+.boq thead th{background:var(--surface);border-top:0;border-bottom:2px solid var(--fg);font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.boq .n{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.boq tr.sec th,.boq tr.sec td{background:var(--accent-soft);font-family:var(--f-display);font-size:18px;letter-spacing:.02em;font-weight:600;text-transform:none;color:var(--fg)}
+.boq tr.tot td{font-weight:600;border-top:2px solid var(--fg)}
+.boq caption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.m-note{margin:0;font-size:13px;color:var(--muted)}
+@media (max-width:640px){.boq th,.boq td{padding:6px 5px}.boq th:first-child,.boq td:first-child{padding-left:8px}.boq th:last-child,.boq td:last-child{padding-right:8px}table.boq{font-size:12.5px}.boq .n{font-size:12px}.sheet-head,.sheet-body{padding:14px}}
+
 @media (max-width:820px){
   .hero .wrap,.est,.contact,.tools,.proj{grid-template-columns:minmax(0,1fr)}
-  .sec-head,.job{grid-template-columns:minmax(0,1fr)}
+  .sec-head,.job,.m-top{grid-template-columns:minmax(0,1fr)}
   .svc{grid-template-columns:minmax(0,1fr)}
   .figs{grid-template-columns:repeat(2,minmax(0,1fr))}
   .fig:nth-child(3){border-left:0}
@@ -232,38 +286,45 @@ footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
 <section id="projects">
   <div class="sec-head">
     <h2>Project samples</h2>
-    <p>Five residential estimates for Philippine clients, with contract prices between PHP 5 million and PHP 13 million. Each went from take-off and mark-ups to contract in 2–3 days.</p>
+    <p>Five residential estimates for Philippine clients, with contract values up to PHP 13 million. Each went from take-off and mark-ups to contract in 2–3 days. Select a project to open its BOQ and 3D render.</p>
   </div>
   <div class="proj">
-    <article class="card">
+    <article class="card pop">
       <div class="label">Two-storey residence</div>
       <h3>Lipa, Batangas</h3>
+      <div class="val">PHP 6,500,000.00 contract price</div>
       <p>Full take-off and detailed cost proposal covering structural, roofing, plumbing, electrical, finishing, railings and perimeter works, with owner-supplied items priced separately.</p>
       <ul class="chips"><li>PlanSwift take-off</li><li>BOQ</li></ul>
+      <button type="button" class="open" data-open="lipa">View BOQ and render <span aria-hidden="true">&rarr;</span></button>
     </article>
-    <article class="card">
+    <article class="card pop">
       <div class="label">Two-storey residence</div>
       <h3>Imus, Cavite</h3>
       <p>Take-off across 18 PlanSwift sheets, a detailed BOQ with structural member schedules, and a bill of materials bid sheet organised by work package.</p>
       <ul class="chips"><li>PlanSwift take-off</li><li>BOQ</li><li>BOM bid sheet</li></ul>
+      <button type="button" class="open" data-open="imus">View BOQ and render <span aria-hidden="true">&rarr;</span></button>
     </article>
-    <article class="card">
+    <article class="card pop">
       <div class="label">Two-storey residence</div>
       <h3>Taytay, Rizal</h3>
       <p>Floor-by-floor take-off of slabs, hollow-block walls, ceilings, tiling, roofing, gutters and fascia from the architectural plans.</p>
       <ul class="chips"><li>PlanSwift take-off</li></ul>
+      <button type="button" class="open" data-open="taytay2">View BOQ and render <span aria-hidden="true">&rarr;</span></button>
     </article>
-    <article class="card">
+    <article class="card pop">
       <div class="label">One-storey residence</div>
       <h3>Taytay, Rizal</h3>
       <p>Take-off of floor plan, bathrooms, roofing and finishes, including tile adhesive, waterproofing, canopy and door works.</p>
       <ul class="chips"><li>PlanSwift take-off</li></ul>
+      <button type="button" class="open" data-open="taytay1">View BOQ and render <span aria-hidden="true">&rarr;</span></button>
     </article>
-    <article class="card">
+    <article class="card pop">
       <div class="label">One-storey residence</div>
       <h3>Dasmariñas, Cavite</h3>
+      <div class="val">PHP 3,970,000.00 after discounts</div>
       <p>Take-off of walls, slabs, roofing and site development, plus a 28-week cost-loaded project schedule from mobilisation to demobilisation.</p>
-      <ul class="chips"><li>PlanSwift take-off</li><li>Gantt schedule</li></ul>
+      <ul class="chips"><li>PlanSwift take-off</li><li>Priced BOQ</li><li>Gantt schedule</li></ul>
+      <button type="button" class="open" data-open="dasma">View BOQ and render <span aria-hidden="true">&rarr;</span></button>
     </article>
     <article class="card" style="background:var(--accent-soft)">
       <div class="label">Current · Remote</div>
@@ -288,12 +349,12 @@ footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
       </ul>
     </div>
     <div class="job">
-      <div><h3>Assistant Quantity Surveyor</h3><div class="co">John Hay Management Corporation</div><div class="label" style="margin-top:6px">Camp John Hay, Baguio City</div><div class="when label">Jul 2026 – Present</div></div>
+      <div><h3>Assistant Quantity Surveyor</h3><div class="co">John Hay Management Corporation</div><div class="label" style="margin-top:6px">Camp John Hay, Baguio City</div><div class="when label">Jul 2026 – Sep 2026</div></div>
       <ul>
-        <li>Prepares quantity take-offs and cost estimates per project, based on current material availability and prices.</li>
-        <li>Prepares project specifications and scopes of work for all project components.</li>
-        <li>Builds project timelines, manpower and equipment schedules, and PERT-CPM and Gantt charts in scheduling software.</li>
-        <li>Supports space planning and design preparation in line with the National Building Code of the Philippines.</li>
+        <li>Prepared quantity take-offs and cost estimates per project, based on current material availability and prices.</li>
+        <li>Prepared project specifications and scopes of work for all project components.</li>
+        <li>Built project timelines, manpower and equipment schedules, and PERT-CPM and Gantt charts in scheduling software.</li>
+        <li>Supported space planning and design preparation in line with the National Building Code of the Philippines.</li>
       </ul>
     </div>
     <div class="job">
@@ -373,6 +434,8 @@ footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
       <div class="label">Based in</div>
       <p style="margin:10px 0 0">Urdaneta City, Pangasinan, Philippines (UTC+8)</p>
       <p class="note">Remote work for Australian and US clients.</p>
+      <div class="label" style="margin-top:18px">LinkedIn</div>
+      <p style="margin:8px 0 0;word-break:break-all"><a href="https://www.linkedin.com/in/jeryck-ian-casta%C3%B1eto-4590a727b" target="_blank" rel="noopener">linkedin.com/in/jeryck-ian-castañeto-4590a727b</a></p>
     </div>
   </div>
 </section>
@@ -380,6 +443,26 @@ footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
 </main>
 
 <footer class="wrap">Jeryck Ian V. Castañeto, RCE · Construction Estimator</footer>
+
+<div class="modal" id="modal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="m-title" tabindex="-1">
+    <div class="sheet-head">
+      <div><div class="label" id="m-type"></div><h3 id="m-title"></h3></div>
+      <button type="button" class="btn close" id="m-close">Close</button>
+    </div>
+    <div class="sheet-body">
+      <div class="m-top">
+        <figure class="render" id="m-render"></figure>
+        <div class="m-info"><p id="m-sum"></p><dl id="m-facts"></dl></div>
+      </div>
+      <div class="m-scope" id="m-scope" hidden></div>
+      <div class="tabs" id="m-tabs" role="tablist" aria-label="Documents" hidden></div>
+      <div class="tbl" id="m-table" hidden></div>
+      <p class="m-note" id="m-note" hidden></p>
+    </div>
+  </div>
+</div>
+
 
 <script>
 (function(){
@@ -406,4 +489,675 @@ footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
 })();
 </script>
 
-</body></html>
+<script>
+// Project data for the portfolio pop-ups. Row format: [description, qty, unit, rate, amount]
+// Section format: {t: title, sub: subtotal (priced only), r: rows}
+var PROJECTS = {
+  lipa: {
+    title: "Lipa, Batangas",
+    type: "Two-storey residence",
+    render: null,
+    summary: "Detailed cost proposal with structural, roofing, plumbing, electrical, finishing, railing and perimeter works. Owner-supplied items are priced separately so the client can compare suppliers.",
+    facts: [
+      ["Contract price", "PHP 6,500,000.00"],
+      ["Gross works", "PHP 6,671,895.70"],
+      ["Owner-supplied items", "PHP 1,013,324.80"],
+      ["Gate and fence works", "PHP 680,000.00"]
+    ],
+    tables: [{
+      name: "Bill of quantities",
+      priced: true,
+      sections: [
+        {t: "General requirements", sub: 660000, r: [
+          ["Mobilization / demobilization", 1, "LOT", null, 75000],
+          ["Deliveries, tools and equipment (excl. subdivision gate pass fees)", 1, "LOT", null, 85000],
+          ["Temporary facilities (cover fence, barracks, storage)", 1, "LOT", null, 95000],
+          ["Operations and communications", 1, "LOT", null, 280000],
+          ["Electricity and water consumption", 1, "LOT", null, 80000],
+          ["Soil poisoning and reticulation piping system", 1, "LOT", null, 45000]
+        ]},
+        {t: "Civil works: structural", sub: 4401154.5, r: [
+          ["Column 1, ground floor", 22.5, "LM", 3650, 82125],
+          ["Column 2, ground floor", 79.6, "LM", 3845, 306062],
+          ["Column 3, ground floor", 20.1, "LM", 4025, 80902.5],
+          ["Planted column 1, ground floor", 3, "LM", 3650, 10950],
+          ["Column 1, second floor", 29.55, "LM", 3650, 107857.5],
+          ["Column 2, second floor", 97.6, "LM", 3845, 375272],
+          ["Column 3, second floor", 24.8, "LM", 4025, 99820],
+          ["Planted column 1, second floor", 7.5, "LM", 3650, 27375],
+          ["Fire wall with waterproofing", 23.17, "LM", 4231.01, 98021.1],
+          ["TB-01", 41, "LM", 3600, 147600],
+          ["B-01", 48.2, "LM", 4000, 192800],
+          ["B-02", 16, "LM", 4000, 64000],
+          ["B-03", 12, "LM", 4000, 48000],
+          ["CB-01", 4.4, "LM", 4000, 17600],
+          ["CB-02", 2, "LM", 4000, 8000],
+          ["RB-01", 41.6, "LM", 3000, 124800],
+          ["RB-02", 6, "LM", 3000, 18000],
+          ["RCB-01", 6, "LM", 3000, 18000],
+          ["Wall footing 01", 19.1, "LM", 2500, 47750],
+          ["6\" exterior hollow-block wall, 5\" CHB, G/F", 124.16, "SQ M", 2000, 248320],
+          ["6\" exterior hollow-block wall, 5\" CHB, 2/F", 148.4, "SQ M", 2000, 296800],
+          ["5\" interior hollow-block wall, 4\" CHB, G/F", 69.44, "SQ M", 1900, 131936],
+          ["5\" interior hollow-block wall, 4\" CHB, 2/F", 94.08, "SQ M", 1900, 178752],
+          ["Painting of interior and exterior walls", 872.16, "SQ M", 915, 798026.4],
+          ["Ground floor slab, interior", 70.1, "SQ M", 2100, 147210],
+          ["Ground floor slab, exterior", 43.6, "SQ M", 2100, 91560],
+          ["Second floor slab, interior", 63.1, "SQ M", 2700, 170370],
+          ["Second floor slab, exterior", 22.2, "SQ M", 2700, 59940],
+          ["Footing 1", 11, "PCS", 21800, 239800],
+          ["Footing 2", 3, "PCS", 24500, 73500],
+          ["Cold-applied waterproofing (T&B, balcony, porch, lanai)", 36.7, "SQ M", 850, 31195],
+          ["Kitchen concrete countertop slab", 2.1, "SQ M", 2100, 4410],
+          ["Concrete stairs, first to second floor", 17, "STEPS", 3200, 54400]
+        ]},
+        {t: "Roofing works", sub: 430240.94, r: [
+          ["Roof sheet, 0.50 mm long-span rib type", 134.8, "SQ M", 650, 87620],
+          ["Roof gutter", 12.3, "M", 695, 8548.5],
+          ["Senepa / fascia board", 14.76, "SQ M", 480, 7084.8],
+          ["Painting of senepa / fascia board", 16.24, "SQ M", 90, 1461.24],
+          ["Accessories", 134.8, "SQ M", 90, 12132],
+          ["Bent materials (flashing, ridge roll)", 73.2, "SQ M", 480, 35136],
+          ["Insulation, 10 mm single foil", 148.28, "SQ M", 90, 13345.2],
+          ["Labour", 134.8, "SQ M", 495, 66726],
+          ["Truss and framing (C-purlins and angle bars)", 161.76, "SQ M", 1095, 177127.2],
+          ["Canopy", 15.6, "SQ M", 1350, 21060]
+        ]},
+        {t: "Plumbing works", sub: 180632.5, r: [
+          ["PPR pipe, water supply", 72.16, "LM", 245, 17679.2],
+          ["PPR tees and elbows", 48, "EA", 50, 2400],
+          ["PPR adapters for faucet and shower connections", 17, "EA", 220, 3740],
+          ["PPR pipe, ACU drain line", 6, "EA", 245, 1470],
+          ["PPR gate valve", 9, "EA", 460, 4140],
+          ["PPR check valve", 1, "EA", 320, 320],
+          ["Sewer pipe and fittings, 4\"", 84.48, "LM", 645, 54489.6],
+          ["Drain pipe and fittings, 3\"", 50.44, "LM", 345, 17401.8],
+          ["Vent pipe and fittings, 2\"", 23.02, "LM", 345, 7941.9],
+          ["Floor drains", 10, "PCS", 445, 4450],
+          ["Catch basin", 3, "PCS", 2200, 6600],
+          ["Septic tank", 1, "PCS", 60000, 60000]
+        ]},
+        {t: "Electrical works: service entrance", sub: 137084.26, r: [
+          ["Service entrance pipe", 22.92, "M", 240.5, 5512.26],
+          ["Service entrance wire to main panel board", 68.76, "M", 950, 65322],
+          ["Service entrance and meter base installation", 1, "EA", 10250, 10250],
+          ["Main panel board with breaker", 1, "EA", 36000, 36000],
+          ["Service post", 1, "EA", 20000, 20000]
+        ]},
+        {t: "Electrical works: ground floor", sub: 78476, r: [
+          ["Installation of lighting fixtures", 66, "EA", 200, 13200],
+          ["Switch and lighting wiring and rough-in", 13, "EA", 2300, 29900],
+          ["Outlet wiring and rough-in", 22, "EA", 1608, 35376]
+        ]},
+        {t: "Electrical works: second floor", sub: 77308, r: [
+          ["Installation of lighting fixtures", 68, "EA", 150, 10200],
+          ["Switch and lighting wiring and rough-in", 11, "EA", 2300, 25300],
+          ["Outlet wiring and rough-in", 26, "EA", 1608, 41808]
+        ]},
+        {t: "Ground floor finishing", sub: 221283, r: [
+          ["Interior gypsum board ceiling (flat)", 59.7, "SQ M", 750, 44775],
+          ["Moisture-resistant gypsum / fibre cement for T&B", 25.8, "SQ M", 850, 21930],
+          ["Painting of ceiling", 85.5, "SQ M", 350, 29925],
+          ["Floor tile installation, interior", 60.1, "SQ M", 650, 39065],
+          ["Floor tile installation, exterior", 47.2, "SQ M", 650, 30680],
+          ["Floor tile, T&B and service area (incl. waterproofing)", 7.5, "SQ M", 1000, 7500],
+          ["Interior wall tile installation, T&B (labour)", 48.32, "SQ M", 650, 31408],
+          ["Installation of plumbing fixtures", 8, "EA", 2000, 16000]
+        ]},
+        {t: "Second floor finishing", sub: 237559, r: [
+          ["Interior gypsum board ceiling", 59, "SQ M", 750, 44250],
+          ["Interior PVC board ceiling (cove)", 3.2, "SQ M", 850, 2720],
+          ["Moisture-resistant gypsum / fibre cement for T&B", 7, "SQ M", 850, 5950],
+          ["Painting of ceiling", 66, "SQ M", 351, 23166],
+          ["Roof eaves (labour and materials)", 55.7, "SQ M", 1050, 58485],
+          ["Floor tile installation, interior", 61.3, "SQ M", 650, 39845],
+          ["Floor tile installation, exterior", 22.3, "SQ M", 650, 14495],
+          ["Floor tile, T&B and balcony (incl. waterproofing)", 6.6, "SQ M", 1000, 6600],
+          ["Interior wall tile installation, T&B (labour)", 47.36, "SQ M", 550, 26048],
+          ["Installation of plumbing fixtures", 8, "EA", 2000, 16000]
+        ]},
+        {t: "Doors, painting and installation", sub: 39645, r: [
+          ["Painting of wood door jambs", 11, "EA", 450, 4950],
+          ["Painting of wood doors (live varnished)", 9, "EA", 2305, 20745],
+          ["Installation of doors, jambs and hinges", 9, "EA", 1200, 10800],
+          ["Installation of door knobs", 9, "EA", 350, 3150]
+        ]},
+        {t: "Other works", sub: 96300, r: [
+          ["Solid wood planks: installation, sanding and painting", 2.1, "SQ M", 2000, 4200],
+          ["Exterior wall accents, brick stone (labour and materials)", 26.5, "SQ M", 1650, 43725],
+          ["Exterior wall accents, WPC panel (labour and materials)", 22.5, "SQ M", 2150, 48375]
+        ]},
+        {t: "Stair railings, handrails and grills", sub: 112212.5, r: [
+          ["Steel railings, stairs", 4.95, "SQ M", 5250, 25987.5],
+          ["Tubular handrails (labour and materials)", 4.5, "SQ M", 4850, 21825],
+          ["Glass railings, balcony", 11.2, "SQ M", 5750, 64400]
+        ]},
+        {t: "Owner-supplied items (priced separately)", sub: 1013324.8, r: [
+          ["Ground floor electrical fixtures", null, null, null, 41708],
+          ["Second floor electrical fixtures", null, null, null, 47402],
+          ["Ground floor finishing materials", null, null, null, 238996.8],
+          ["Second floor finishing materials", null, null, null, 403868.4],
+          ["Kitchen and service area installation", null, null, null, 8799.6],
+          ["Doors", null, null, null, 107000],
+          ["Windows (aluminium frame, 1/4\" glass, screen)", null, null, null, 165550]
+        ]},
+        {t: "Additional works: gate and perimeter fence", sub: 699546, r: [
+          ["Carport gate, 2.0 m high", 11.6, "SQ M", 4500, 52200],
+          ["Service entrance gate", 2.6, "SQ M", 4500, 11700],
+          ["Perimeter fence, 2.0 m high (masonry)", 107.2, "SQ M", 2000, 214400],
+          ["Perimeter fence, 2.0 m high (paint)", 107.2, "SQ M", 915, 98088],
+          ["Fence column footing incl. manual excavation, 0.6 x 0.6 m, 4 pcs-12 mm", 22, "PCS", 7721, 169862],
+          ["Fence reinforced columns, 2.6 m high", 57.2, "LM", 2680, 153296]
+        ]}
+      ],
+      totals: [
+        ["Total interior and exterior works", 6671895.7, false],
+        ["Less discount", -171895.7, false],
+        ["Contract price, interior and exterior works", 6500000, true],
+        ["Owner-supplied items total", 1013324.8, false],
+        ["Grand total including owner-supplied items", 7513324.8, true],
+        ["Gate and fence works, less discount of 19,546.00", 680000, true]
+      ]
+    }]
+  },
+
+  dasma: {
+    title: "Dasmariñas, Cavite",
+    type: "One-storey residence",
+    render: null,
+    summary: "Priced bill of quantities used as a cost-loaded project schedule: 28 weeks from mobilization on 26 Jan 2026 to demobilization on 7 Aug 2026.",
+    facts: [
+      ["Cost-loaded total", "PHP 4,028,714.95"],
+      ["After discounts", "PHP 3,970,000.00"],
+      ["Schedule", "28 weeks, 26 Jan to 7 Aug 2026"],
+      ["Format", "Priced BOQ with weekly cost loading"]
+    ],
+    tables: [{
+      name: "Priced bill of quantities",
+      priced: true,
+      sections: [
+        {t: "General requirements", sub: 638000, r: [
+          ["Mobilization", 1, "LOT", 45000, 45000],
+          ["Demobilization", 1, "LOT", 45000, 45000],
+          ["Deliveries, tools and equipment (excl. subdivision gate pass fees)", 1, "LOT", 80000, 80000],
+          ["Temporary facilities (cover fence, barracks, storage)", 1, "LOT", 95000, 95000],
+          ["Operations and communications", 1, "LOT", 248000, 248000],
+          ["Electricity and water consumption", 1, "LOT", 80000, 80000],
+          ["Soil poisoning and reticulation piping system", 1, "LOT", 45000, 45000]
+        ]},
+        {t: "Civil works: structural", sub: 1519611, r: [
+          ["Footing 1, 1.20 x 1.20 m, 7 pcs-16 mm", 8, "PCS", 16800, 134400],
+          ["Pedestal column 1, 0.20 x 0.40 m, 6 pcs-16 mm", 12, "LM", 3400, 40800],
+          ["Column 1, 0.20 x 0.40 m, 6 pcs-16 mm", 25.6, "LM", 3400, 87040],
+          ["FTB-01", 52.6, "LM", 4000, 210400],
+          ["RB-01", 50.5, "LM", 3100, 156550],
+          ["RB-02", 10.5, "LM", 3350, 35175],
+          ["6\" exterior hollow-block wall, 5\" CHB, G/F", 152.46, "SQ M", 1500, 228690],
+          ["5\" interior hollow-block wall, 4\" CHB, G/F", 80.64, "SQ M", 1400, 112896],
+          ["Plastering, exterior, G/F", 152.46, "SQ M", 400, 60984],
+          ["Plastering, interior, G/F", 80.64, "SQ M", 400, 32256],
+          ["Painting of interior walls", 466.2, "SQ M", 400, 186480],
+          ["Ground floor slab, interior", 71, "SQ M", 2100, 149100],
+          ["Ground floor slab, exterior", 35.9, "SQ M", 2100, 75390],
+          ["Kitchen concrete countertop slab", 4.5, "SQ M", 2100, 9450]
+        ]},
+        {t: "Roofing works", sub: 507615.75, r: [
+          ["Roof sheet, 0.50 mm long-span rib type", 141.4, "SQ M", 650, 91910],
+          ["Roof gutter", 26.57, "LM", 700, 18599],
+          ["Senepa / fascia board", 74.3, "LM", 480, 35664],
+          ["Painting of senepa / fascia board", 81.73, "SQ M", 90, 7355.7],
+          ["Accessories", 155.54, "SQ M", 90, 13998.6],
+          ["Bent materials (flashing, ridge roll)", 47.73, "LM", 345, 16466.85],
+          ["Insulation, 10 mm single foil", 155.54, "SQ M", 90, 13998.6],
+          ["Labour", 141.4, "SQ M", 495, 69993],
+          ["Truss and framing (C-purlins and angle bars)", 141.4, "SQ M", 1000, 141400],
+          ["Roof eaves, PVC ceiling", 51.7, "SQ M", 1900, 98230]
+        ]},
+        {t: "Plumbing works", sub: 136120.4, r: [
+          ["PPR pipe, water supply", 56.4, "LM", 250, 14100],
+          ["PPR tees and elbows", 36, "EA", 5, 180],
+          ["PPR adapters for faucet and shower connections", 9, "EA", 220, 1980],
+          ["PPR gate valve", 8, "EA", 460, 3680],
+          ["PPR check valve", 1, "EA", 320, 320],
+          ["Sewer pipe and fittings, 4\"", 39, "LM", 645, 25155],
+          ["Storm drain pipe and fittings, 4\"", 61.6, "LM", 449, 27658.4],
+          ["Vent pipe and fittings, 2\"", 7.6, "LM", 345, 2622],
+          ["Floor drains and shower drains", 5, "PCS", 445, 2225],
+          ["Catch basin", 6, "PCS", 2200, 13200],
+          ["Septic tank, 2.00 x 5.45 m", 1, "PCS", 45000, 45000]
+        ]},
+        {t: "Electrical works: service entrance", sub: 108000, r: [
+          ["Service entrance pipe", 15, "M", 250, 3750],
+          ["Service entrance wire to main panel board", 45, "M", 950, 42750],
+          ["Service entrance and meter base installation", 1, "EA", 10500, 10500],
+          ["Main panel board with breaker", 1, "EA", 36000, 36000],
+          ["Service post", 1, "EA", 15000, 15000]
+        ]},
+        {t: "Electrical works: ground floor", sub: 70900, r: [
+          ["Installation of lighting fixtures", 81, "EA", 200, 16200],
+          ["Switch and lighting wiring and rough-in", 8, "EA", 2300, 18400],
+          ["Outlet wiring and rough-in", 22, "EA", 1650, 36300]
+        ]},
+        {t: "Ground floor finishing", sub: 259282.8, r: [
+          ["Interior gypsum board ceiling (flat)", 39.4, "SQ M", 650, 25610],
+          ["Interior gypsum board ceiling (cove)", 11.4, "SQ M", 750, 8550],
+          ["Interior PVC ceiling (cove)", 18, "SQ M", 1900, 34200],
+          ["Moisture-resistant fibre cement for T&B", 6.4, "SQ M", 750, 4800],
+          ["Exterior PVC ceiling (flat)", 17.4, "SQ M", 750, 13050],
+          ["Painting of ceiling", 92.6, "SQ M", 350, 32410],
+          ["Floor tile installation, interior", 64.5, "SQ M", 650, 41925],
+          ["Floor tile installation, exterior", 12, "SQ M", 650, 7800],
+          ["Floor tile, T&B and service area (incl. waterproofing)", 6.4, "SQ M", 1000, 6400],
+          ["Interior wall tile installation, T&B (labour)", 19.2, "SQ M", 650, 12480],
+          ["Exterior wall accent, brick tile", 13, "SQ M", 2000, 26000],
+          ["Exterior wall accent, breeze blocks", 1.2, "SQ M", 3000, 3600],
+          ["Installation of plumbing fixtures", 8, "EA", 2000, 16000],
+          ["Painting of canopy", 11.572, "SQ M", 650, 7521.8],
+          ["Concrete canopy", 10.52, "SQ M", 1800, 18936]
+        ]},
+        {t: "Doors, painting and installation", sub: 25830, r: [
+          ["Painting of wood door jambs", 6, "EA", 450, 2700],
+          ["Painting of wood doors (live varnished)", 6, "EA", 2305, 13830],
+          ["Installation of doors, jambs and hinges", 6, "EA", 1200, 7200],
+          ["Installation of lever sets", 6, "EA", 350, 2100]
+        ]},
+        {t: "Kitchen and service area", sub: 33675, r: [
+          ["Sink installation, kitchen", 1, "EA", 1500, 1500],
+          ["Countertop, ceramic tiles", 4.95, "SQ M", 6000, 29700],
+          ["Wall tile, ceramic 60 x 60 cm, kitchen backsplash", 4.5, "LM", 550, 2475]
+        ]},
+        {t: "Ground floor electrical fixtures", sub: 24000, r: [
+          ["4\" pinlight", 63, "EA", 100, 6300],
+          ["Wall light", 10, "EA", 750, 7500],
+          ["Center light", 6, "EA", 1000, 6000],
+          ["Exhaust", 2, "EA", 600, 1200],
+          ["Switch", 8, "EA", 100, 800],
+          ["Outlets", 22, "EA", 100, 2200]
+        ]},
+        {t: "Ground floor finishing materials", sub: 85260, r: [
+          ["T&B floor tile with 20% allowance", 7.68, "SQ M", 500, 3840],
+          ["T&B wall tile, ceramic", 23.04, "SQ M", 500, 11520],
+          ["Shower, lavatory, water closet and floor drain fixtures", 2, "SETS", 12000, 24000],
+          ["Interior floor tiles, 60 x 60 cm with 20% allowance", 77.4, "SQ M", 500, 38700],
+          ["Exterior floor tiles, 60 x 60 cm with 20% allowance", 14.4, "SQ M", 500, 7200]
+        ]},
+        {t: "Cabinetry", sub: 209000, r: [
+          ["Lower kitchen cabinets, marine plywood, painted", 2.8, "CU M", 20000, 56000],
+          ["Upper kitchen cabinets, marine plywood, painted", 1.98, "CU M", 20000, 39600],
+          ["Bedroom cabinets, marine plywood, painted", 5.67, "CU M", 20000, 113400]
+        ]},
+        {t: "Doors", sub: 47500, r: [
+          ["D1", 1, "EA", 5500, 5500],
+          ["D2", 1, "EA", 5500, 5500],
+          ["D3", 2, "EA", 5500, 11000],
+          ["D4", 2, "EA", 6750, 13500],
+          ["Door knobs and hinges", 6, "SETS", 800, 4800],
+          ["Door jambs", 6, "SETS", 1200, 7200]
+        ]},
+        {t: "Windows", sub: 104920, r: [
+          ["W1 (2)", 5.6, "SQ M", 4300, 24080],
+          ["W2 (2)", 5.04, "SQ M", 4300, 21672],
+          ["W3 (2)", 4.48, "SQ M", 4300, 19264],
+          ["W4 (2)", 2.88, "SQ M", 4300, 12384],
+          ["W5", 2.4, "SQ M", 4300, 10320],
+          ["W6", 4, "SQ M", 4300, 17200]
+        ]},
+        {t: "Perimeter fence and gate", sub: 259000, r: [
+          ["Front gate, 2.0 m high, tubular steel, painted", 10, "SQ M", 3500, 35000],
+          ["Perimeter fence, 2.0 m high", 80, "SQ M", 2500, 200000],
+          ["Fence reinforced columns, 2 m high", 12, "LM", 2000, 24000]
+        ]},
+        {t: "Discounts", sub: -58714.95, r: [
+          ["Less discount for plans and interior 3D", null, null, null, -50000],
+          ["Less discount", null, null, null, -8714.95]
+        ]}
+      ],
+      totals: [
+        ["Cost-loaded total before discounts", 4028714.95, false],
+        ["Total after discounts", 3970000, true]
+      ]
+    }]
+  },
+
+  imus: {
+    title: "Imus, Cavite",
+    type: "Two-storey residence",
+    render: null,
+    summary: "Quantity BOQ across all trades, plus a bill of materials bid sheet with rebar, concrete, formwork, masonry and finishing quantities for suppliers to price.",
+    facts: [
+      ["Reinforcing steel", "11,723.01 kg, Grade 40"],
+      ["Formwork", "420.85 sq m phenolic plywood"],
+      ["Take-off", "PlanSwift, 18 sheets"],
+      ["Unit rates", "Not shown in this sample"]
+    ],
+    tables: [
+      {
+        name: "Bill of quantities",
+        priced: false,
+        sections: [
+          {t: "General requirements", r: [
+            ["Mobilization / demobilization", 1, "LOT"],
+            ["Deliveries, tools and equipment", 1, "LOT"],
+            ["Temporary facilities", 1, "LOT"],
+            ["Operations and communications", 1, "LOT"],
+            ["Electricity and water consumption", 1, "LOT"],
+            ["Soil poisoning and reticulation piping system", 1, "LOT"]
+          ]},
+          {t: "Civil works: structural", r: [
+            ["Column 1, 0.20 x 0.40 m, 8 pcs-16 mm", 113.1, "LM"],
+            ["Column 2, 0.20 x 0.40 m, 10 pcs-16 mm", 17.4, "LM"],
+            ["Column 3, 0.25 x 0.40 m, 10 pcs-16 mm", 17.4, "LM"],
+            ["FTB-01", 87, "LM"],
+            ["Wall footing", 24.4, "LM"],
+            ["B-01", 66.7, "LM"],
+            ["B-02", 12.4, "LM"],
+            ["B-03", 22.2, "LM"],
+            ["B-04", 6.2, "LM"],
+            ["B-05", 6.4, "LM"],
+            ["RB-01", 38.1, "LM"],
+            ["RB-02", 48.2, "LM"],
+            ["RB-03", 6.9, "LM"],
+            ["RCB-01", 2, "LM"],
+            ["6\" exterior hollow-block wall, 5\" CHB, G/F", 127.5, "SQ M"],
+            ["6\" exterior hollow-block wall, 5\" CHB, 2/F", 146.4, "SQ M"],
+            ["5\" interior hollow-block wall, 4\" CHB, G/F", 80.7, "SQ M"],
+            ["5\" interior hollow-block wall, 4\" CHB, 2/F", 112.5, "SQ M"],
+            ["Firewall", 46, "SQ M"],
+            ["Painting of interior walls", 386.4, "SQ M"],
+            ["Painting of exterior walls", 639.8, "SQ M"],
+            ["Ground floor slab, interior", 97.8, "SQ M"],
+            ["Ground floor slab, exterior (carport, porch, plant box, service area)", 74.6, "SQ M"],
+            ["Second floor slab, interior", 119.8, "SQ M"],
+            ["Second floor slab, exterior", 10.3, "SQ M"],
+            ["Footing 1, 1.20 x 1.20 m, 7 pcs-16 mm", 6, "PCS"],
+            ["Footing 2, 1.40 x 1.40 m, 8 pcs-16 mm", 7, "PCS"],
+            ["Footing 3, 1.60 x 1.60 m, 9 pcs-16 mm", 1, "PCS"],
+            ["Footing 4, 1.80 x 1.80 m, 11 pcs-16 mm", 3, "PCS"],
+            ["Cold-applied waterproofing (T&B, balcony, porch, lanai, firewall)", 75.3, "SQ M"],
+            ["Concrete stairs, first to second floor", 17, "STEPS"]
+          ]},
+          {t: "Roofing works", r: [
+            ["Roof 1, 0.50 mm long-span rib type", 151, "SQ M"],
+            ["Roof 2, 0.50 mm long-span rib type", 13.5, "SQ M"],
+            ["Steel trellis with polycarbonate roof", 12.8, "SQ M"],
+            ["Stainless roof gutter", 57.7, "LM"],
+            ["Senepa / fascia board", 57.7, "LM"],
+            ["Painting of senepa / fascia board", 63.47, "SQ M"],
+            ["Accessories", 69.24, "SQ M"],
+            ["Insulation, 10 mm double-sided foil", 197.4, "SQ M"],
+            ["Labour", 212.3, "SQ M"],
+            ["Truss and framing (C-purlins and tubular bars)", 180.95, "SQ M"],
+            ["Concrete canopy", 39.04, "SQ M"]
+          ]},
+          {t: "Plumbing works", r: [
+            ["PPR pipe, water supply", 185.4, "LM"],
+            ["PPR tees and elbows", 124, "EA"],
+            ["PPR adapters for faucet and shower connections", 25, "EA"],
+            ["PPR pipe, ACU drain line", 6, "EA"],
+            ["PPR gate valve", 13, "EA"],
+            ["PPR check valve", 3, "EA"],
+            ["Sewer pipe and fittings, 4\"", 66.96, "LM"],
+            ["Sewer pipe and fittings, 3\"", 45, "LM"],
+            ["Storm drain pipe and fittings, 4\"", 74.4, "LM"],
+            ["Vent pipe and fittings, 2\"", 25.8, "LM"],
+            ["Catch basin", 7, "PCS"],
+            ["Motor tank pump, 1 hp", 1, "PCS"],
+            ["Septic tank", 1, "PCS"]
+          ]},
+          {t: "Electrical works", r: [
+            ["Service entrance pipe", 12.6, "M"],
+            ["Service entrance wire to main panel board", 37.8, "M"],
+            ["Service entrance and meter base installation", 1, "EA"],
+            ["Main panel board with breaker", 1, "EA"],
+            ["Service post", 1, "EA"],
+            ["Ground floor: lighting fixtures", 311, "EA"],
+            ["Ground floor: switch and lighting wiring and rough-in", 32, "EA"],
+            ["Ground floor: outlet wiring and rough-in", 64, "EA"],
+            ["Second floor: lighting fixtures", 165, "EA"],
+            ["Second floor: switch and lighting wiring and rough-in", 13, "EA"],
+            ["Second floor: outlet wiring and rough-in", 31, "EA"]
+          ]},
+          {t: "Ground floor finishing", r: [
+            ["Interior gypsum board ceiling (flat)", 58.4, "SQ M"],
+            ["Interior gypsum board ceiling (cove)", 21.1, "SQ M"],
+            ["Moisture-resistant fibre cement for T&B (flat)", 4.3, "SQ M"],
+            ["Moisture-resistant fibre cement, outdoor (flat)", 33.5, "SQ M"],
+            ["PVC ceiling, outdoor (flat)", 18.1, "SQ M"],
+            ["Painting of ceiling", 117.3, "SQ M"],
+            ["Floor tile installation, interior", 93.5, "SQ M"],
+            ["Interior wall tile installation, T&B (labour)", 36, "SQ M"],
+            ["Exterior wall accent (labour)", 26.88, "SQ M"],
+            ["Exterior wall, paint with groove finish", 153, "SQ M"],
+            ["Installation of plumbing fixtures", 12, "EA"]
+          ]},
+          {t: "Second floor finishing", r: [
+            ["Interior gypsum board ceiling (flat)", 78, "SQ M"],
+            ["Interior gypsum board ceiling (cove)", 22, "SQ M"],
+            ["Interior moisture-resistant fibre cement for T&B (flat)", 14.6, "SQ M"],
+            ["Outdoor WPC board ceiling (roof)", 50.2, "SQ M"],
+            ["Painting of ceiling", 114.6, "SQ M"],
+            ["Floor tile installation, interior", 105.4, "SQ M"],
+            ["Floor tile, T&B and balcony (incl. waterproofing)", 14.4, "SQ M"],
+            ["Interior wall tile installation, T&B (labour)", 64.8, "SQ M"],
+            ["Exterior wall accents (labour)", 18.96, "SQ M"],
+            ["Exterior wall, paint with groove finish", 175.68, "SQ M"],
+            ["Painting of canopy", 42.94, "SQ M"],
+            ["Installation of plumbing fixtures", 12, "EA"],
+            ["Openable steel vertical louver at balcony (supply and install)", 5, "PCS"],
+            ["Stainless handrailing with glass at balcony", 4.3, "LM"]
+          ]},
+          {t: "Doors, kitchen and stairs", r: [
+            ["Doors: painting of jambs, painting, installation and lever sets", 14, "EA"],
+            ["Sink installation, kitchen", 2, "EA"],
+            ["Kitchen and breakfast nook counter masonry / slab", 5, "SQ M"],
+            ["Quartz top, kitchen", 3.5, "SQ M"],
+            ["Quartz countertop, breakfast nook", 1.5, "SQ M"],
+            ["Wall tile, kitchen and service backsplash", 1.86, "SQ M"],
+            ["Wooden handrails, mahogany", 5.4, "LM"],
+            ["B.I. steel post, powder coated", 5.4, "LM"],
+            ["Tempered glass", 3, "SQ M"],
+            ["Stair floor finish, wood planks 25 x 100 cm with 20% allowance", 7.48, "SQ M"]
+          ]},
+          {t: "Cabinetry, gate and fence", r: [
+            ["Bedroom cabinets, marine plywood, painted", 22.68, "CU M"],
+            ["Lower kitchen cabinets, marine plywood, painted", 1.49, "CU M"],
+            ["Upper kitchen cabinets, marine plywood, painted", 2.79, "CU M"],
+            ["Garage: steel trellis with polycarbonate roof", 12.8, "SQ M"],
+            ["Carport gate, 2.00 m high, tubular steel and metal sheet", 11.4, "SQ M"],
+            ["Perimeter fence (concrete)", 118, "SQ M"],
+            ["Painting of perimeter fence (area x 1.3)", 306.8, "SQ M"],
+            ["Fence column footing incl. manual excavation, 0.6 x 0.6 m", 21, "PCS"],
+            ["Fence reinforced columns", 54.6, "LM"]
+          ]}
+        ]
+      },
+      {
+        name: "Material bid sheet",
+        priced: false,
+        sections: [
+          {t: "Site work", r: [
+            ["Layout and batter boards", 58.88, "SQ M"],
+            ["Excavation (incl. shoring if necessary and soil verification)", 72.44, "CU M"],
+            ["Backfill works with compaction", 60.58, "CU M"],
+            ["Grading and compaction (subgrade preparation)", 86.56, "SQ M"],
+            ["Gravel bedding (base course)", 10.3, "CU M"]
+          ]},
+          {t: "Formwork and scaffolds", r: [
+            ["Forms, phenolic plywood for exposed finish", 420.85, "SQ M"],
+            ["G.I. pipes, 1 1/2\" dia", 150, "PCS"],
+            ["Swivel clamps", 800, "PCS"],
+            ["Scaffoldings", 45, "SETS"],
+            ["Metal decking, gauge 0.8 mm", 70.85, "LN M"]
+          ]},
+          {t: "Reinforcement works", r: [
+            ["Rebar, Grade 40: total", 11723.01, "KG"],
+            ["Footing", 640.216, "KG"],
+            ["Wall footing", 84.487, "KG"],
+            ["Columns", 2993.957, "KG"],
+            ["Grade beams", 1415.229, "KG"],
+            ["Second floor beams", 1764.318, "KG"],
+            ["Roof beams", 1350.375, "KG"],
+            ["Slab-on-grade", 957.337, "KG"],
+            ["Suspended slab", 1509.092, "KG"],
+            ["Canopy", 289.052, "KG"],
+            ["Stairs", 151.912, "KG"],
+            ["Fence columns and stiffeners", 567.035, "KG"],
+            ["G.I. tie wire", 5486.37, "KG"]
+          ]},
+          {t: "Concreting works", r: [
+            ["Column footing, 4,000 psi at 28 days", 10.392, "CU M"],
+            ["Wall and stair footing, 3,000 psi", 23.73, "CU M"],
+            ["Columns, main structure, 4,000 psi", 12.18, "CU M"],
+            ["Beams, 4,000 psi", 9.921, "CU M"],
+            ["Suspended slab, 4,000 psi", 13.01, "CU M"],
+            ["Slab-on-grade, 3,000 psi", 17.24, "CU M"],
+            ["Stiffeners and fence columns, 3,000 psi", 9.532, "CU M"],
+            ["Stairs, 3,000 psi", 1.62, "CU M"],
+            ["Canopy", 3.904, "CU M"]
+          ]},
+          {t: "Masonry and finishing works", r: [
+            ["Exterior walls, 5\" CHB", 273.9, "SQ M"],
+            ["Interior walls, 4\" CHB", 193.2, "SQ M"],
+            ["Fence walls, 5\" CHB", 118, "SQ M"],
+            ["Wall plastering, house", 754.55, "SQ M"],
+            ["Wall skim coat preparation", 867.73, "SQ M"],
+            ["Wall elastomeric paint", 905.46, "SQ M"],
+            ["Wall waterproofing", 516.02, "SQ M"]
+          ]}
+        ]
+      }
+    ]
+  },
+
+  taytay2: {
+    title: "Taytay, Rizal (two-storey)",
+    type: "Two-storey residence",
+    render: null,
+    summary: "Floor-by-floor take-off in PlanSwift from the architectural plans.",
+    facts: [
+      ["Format", "PlanSwift take-off on plans"],
+      ["Floors", "Ground floor, second floor, roof"]
+    ],
+    scope: [
+      "Ground and second floor slab areas",
+      "Exterior hollow-block walls (5\" CHB) and interior hollow-block walls (4\" CHB), per floor",
+      "Ceilings: gypsum board, moisture-resistant fibre cement and PVC",
+      "Wall tile installation and adhesive for toilets and baths",
+      "Kitchen and service area wall tile",
+      "Roof sheet, roof gutter and fascia board",
+      "Elevations and floor plans measured for finishes"
+    ],
+    tables: []
+  },
+
+  taytay1: {
+    title: "Taytay, Rizal (one-storey)",
+    type: "One-storey residence",
+    render: null,
+    summary: "Take-off in PlanSwift from the floor plan, bathroom details, roof plan and elevations, covering structure, finishes and openings.",
+    facts: [
+      ["Format", "PlanSwift take-off on plans"],
+      ["Sheets", "Floor plan, bathrooms, roof plan, elevations"]
+    ],
+    scope: [
+      "Interior wall lengths, floor slab and exterior slab areas",
+      "Kitchen concrete slab and counter finishes",
+      "Floor tile and wall tile adhesive for toilets and baths",
+      "Roof eaves, stone-coated roof, polycarbonate roof and canopy",
+      "Concrete volumes in cubic metres",
+      "Doors, door jambs and hinges, and painting of wood door jambs"
+    ],
+    tables: []
+  }
+};
+
+(function(){
+  var modal=document.getElementById("modal"),sheet=modal.querySelector(".sheet");
+  var closeBtn=document.getElementById("m-close"),opener=null,cur=null,tabIdx=0,narrow=window.matchMedia("(max-width:640px)");
+  function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+  function money(n){var s=Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});return(n<0?"−":"")+s}
+  function qty(n){return n.toLocaleString("en-US",{maximumFractionDigits:3})}
+  function renderTable(t){
+    var host=document.getElementById("m-table");host.textContent="";
+    var showRate=t.priced&&!narrow.matches,cols=t.priced?(showRate?5:4):3,table=el("table","boq");
+    table.appendChild(el("caption",null,t.name));
+    var th=el("thead"),hr=el("tr");
+    var heads=t.priced?(showRate?["Description","Qty","Unit","Rate","Amount"]:["Description","Qty","Unit","Amount"]):["Description","Qty","Unit"];
+    heads.forEach(function(h,i){var c=el("th",i>0&&h!=="Unit"?"n":null,h);c.scope="col";hr.appendChild(c)});
+    th.appendChild(hr);table.appendChild(th);
+    var tb=el("tbody");
+    t.sections.forEach(function(s){
+      var tr=el("tr","sec"),h=el("th",null,s.t);h.colSpan=cols-1;h.scope="colgroup";tr.appendChild(h);
+      tr.appendChild(el("td","n",t.priced&&s.sub!=null?money(s.sub):""));tb.appendChild(tr);
+      s.r.forEach(function(r){
+        var row=el("tr");
+        row.appendChild(el("td",null,r[0]));
+        row.appendChild(el("td","n",r[1]==null?"":qty(r[1])));
+        row.appendChild(el("td",null,r[2]==null?"":r[2]));
+        if(t.priced){
+          if(showRate)row.appendChild(el("td","n",r[3]==null?"":money(r[3])));
+          row.appendChild(el("td","n",r[4]==null?"":money(r[4])));
+        }
+        tb.appendChild(row);
+      });
+    });
+    (t.totals||[]).forEach(function(x){
+      var tr=el("tr","tot"),c=el("td",null,x[0]);c.colSpan=cols-1;tr.appendChild(c);
+      tr.appendChild(el("td","n",money(x[1])));tb.appendChild(tr);
+    });
+    table.appendChild(tb);host.appendChild(table);host.hidden=false;host.scrollTop=0;
+  }
+  function showTab(i){
+    tabIdx=i;
+    var tabs=document.getElementById("m-tabs").children;
+    for(var k=0;k<tabs.length;k++)tabs[k].setAttribute("aria-selected",k===i?"true":"false");
+    renderTable(cur.tables[i]);
+    var nt=document.getElementById("m-note");
+    nt.textContent=cur.tables[i].priced?"All amounts are in Philippine pesos (PHP).":"Quantities only. Unit rates are not shown in this sample.";
+    nt.hidden=false;
+  }
+  function open(key,btn){
+    var p=PROJECTS[key];if(!p)return;cur=p;opener=btn;
+    document.getElementById("m-type").textContent=p.type;
+    document.getElementById("m-title").textContent=p.title;
+    document.getElementById("m-sum").textContent=p.summary;
+    var rd=document.getElementById("m-render");rd.textContent="";
+    if(p.render){var im=el("img");im.src=p.render;im.alt="3D render of the "+p.title+" residence";rd.appendChild(im)}
+    else{var ph=el("div","ph");ph.appendChild(el("b",null,"3D render"));ph.appendChild(el("span",null,"Image to be added"));rd.appendChild(ph)}
+    var f=document.getElementById("m-facts");f.textContent="";
+    p.facts.forEach(function(x){var d=el("div");d.appendChild(el("dt",null,x[0]));d.appendChild(el("dd",null,x[1]));f.appendChild(d)});
+    var sc=document.getElementById("m-scope");sc.textContent="";
+    if(p.scope){sc.appendChild(el("h4",null,"Take-off scope"));var ul=el("ul");p.scope.forEach(function(x){ul.appendChild(el("li",null,x))});sc.appendChild(ul);sc.hidden=false}else sc.hidden=true;
+    var tabs=document.getElementById("m-tabs");tabs.textContent="";
+    var tbl=document.getElementById("m-table"),note=document.getElementById("m-note");note.hidden=true;
+    if(p.tables.length){
+      if(p.tables.length>1){
+        p.tables.forEach(function(t,i){var b=el("button","tab",t.name);b.type="button";b.setAttribute("role","tab");b.addEventListener("click",function(){showTab(i)});tabs.appendChild(b)});
+        tabs.hidden=false;
+      }else tabs.hidden=true;
+      showTab(0);
+    }else{tabs.hidden=true;tbl.hidden=true}
+    if(!p.tables.length){note.textContent="Quantities for this project are measured on the plans in PlanSwift. The BOQ document is not part of this sample set.";note.hidden=false}
+    modal.hidden=false;document.documentElement.style.overflow="hidden";
+    var body=modal.querySelector(".sheet-body");body.scrollTop=0;closeBtn.focus();
+  }
+  function close(){modal.hidden=true;document.documentElement.style.overflow="";if(opener&&opener.focus)opener.focus()}
+  Array.prototype.forEach.call(document.querySelectorAll("[data-open]"),function(b){b.addEventListener("click",function(){open(b.getAttribute("data-open"),b)})});
+  closeBtn.addEventListener("click",close);
+  var onNarrow=function(){if(!modal.hidden&&cur&&cur.tables.length)showTab(tabIdx)};
+  if(narrow.addEventListener)narrow.addEventListener("change",onNarrow);
+  modal.addEventListener("click",function(e){if(e.target===modal)close()});
+  document.addEventListener("keydown",function(e){
+    if(modal.hidden)return;
+    if(e.key==="Escape"){close();return}
+    if(e.key==="Tab"){
+      var f=sheet.querySelectorAll("button:not([hidden])");if(!f.length)return;
+      var first=f[0],last=f[f.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+    }
+  });
+})();
+</script>
+</body>
+</html>
